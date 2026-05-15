@@ -15,6 +15,7 @@
 #include <openssl/pem.h>
 #include <openssl/rand.h>
 #include <openssl/err.h>
+#include <pthread.h>
 
 #define CLOUDFILE       "q2a_cloud.cfg"
 #define MAGIC_CLIENT    (('C' << 24) + ('A' << 16) + ('2' << 8) + 'Q')

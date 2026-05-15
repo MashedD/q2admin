@@ -53,7 +53,7 @@ ifndef SHARED_DEPS
                 -Ideps/$(CPU)/zlib/include \
                 -Ideps/$(CPU)/openssl/include \
                 -Ideps/$(CPU)/sqlite/include
-    CFLAGS += -Wall -O3 -fno-strict-aliasing -g -MMD -DCURL_STATICLIB $(INCLUDES)
+    CFLAGS += -std=gnu99 -Wall -O3 -fno-strict-aliasing -g -MMD -DCURL_STATICLIB $(INCLUDES)
     LDFLAGS ?= -shared
     LIBS ?=     deps/$(CPU)/curl/lib/libcurl.a \
                 deps/$(CPU)/zlib/lib/libz.a \

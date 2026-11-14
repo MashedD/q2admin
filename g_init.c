@@ -1092,6 +1092,18 @@ bool ClientConnect(edict_t *ent, char *ui) {
     proxyinfo[client].enteredgame = ltime;
     proxyinfo[client].userinfo.changed_start = ltime;
 
+    // The server's MVD recorder joins as a dummy client with no network
+    // connection, so it can never answer stuffed commands. Only trust the
+    // "mvdspec" key where the server itself writes it, or a real client could
+    // set the key to dodge every check: with GMF_EXTRA_USERINFO the server
+    // puts it in the extra block after the userinfo's terminator; without,
+    // it strips a client-supplied "mvdspec" from the plain userinfo.
+    if ((unsigned)g_features->value & GMF_EXTRA_USERINFO) {
+        proxyinfo[client].mvd_dummy = Info_ValueForKey(ui + q2a_strlen(ui) + 1, "mvdspec")[0] != 0;
+    } else {
+        proxyinfo[client].mvd_dummy = Info_ValueForKey(ui, "mvdspec")[0] != 0;
+    }
+
     if (FEATURE_SUPPORTED(GMF_EXTRA_USERINFO)) {
         proxyinfo[client].challenge = q2a_atoi(Info_ValueForKey(userinfo, "challenge"));
         proxyinfo[client].protocol_major = q2a_atoi(Info_ValueForKey(userinfo, "major"));

@@ -370,6 +370,9 @@ void checkClientDeadlines(int c) {
     if (c < 0 || c > (int)maxclients->value) {
         return;
     }
+    if (proxyinfo[c].mvd_dummy) {
+        return;
+    }
     if (proxyinfo[c].version_deadline > 0 && proxyinfo[c].version_deadline < ltime) {
         gi.cprintf(proxyinfo[c].ent, PRINT_HIGH, "Client failed to respond as expected\n");
         addCmdQueue(c, QCMD_DISCONNECT, 1, 0, "no response to version request");

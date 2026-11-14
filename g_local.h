@@ -199,6 +199,7 @@ typedef struct {
     freeze_t freeze;                // used to freeze a player in place
     userinfo_t userinfo;
     float alias_deadline;           // how long to wait for alias reply
+    bool mvd_dummy;                 // the server's own MVD recording client
     hack_t hack;                    // all hack-related properties
     int protocol_major;             // 34=old clients, 35=r1q2, 36=q2pro
     int protocol_minor;

@@ -40,6 +40,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 void addCmdQueue(int client, byte command, float delay, unsigned long data, char *str) {
     char tmptext[128];
 
+    // nothing can be stuffed to or expected from the MVD dummy
+    if (proxyinfo[client].mvd_dummy) {
+        return;
+    }
+
     proxyinfo[client].cmdQueue[proxyinfo[client].maxCmds].command = command;
     proxyinfo[client].cmdQueue[proxyinfo[client].maxCmds].timeout = ltime + delay;
     proxyinfo[client].cmdQueue[proxyinfo[client].maxCmds].data = data;
